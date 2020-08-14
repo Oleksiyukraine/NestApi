@@ -1,18 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
+import { Model } from 'mongoose';
 
 import { IUser } from './interfaces/user.interface';
-import { Model } from 'mongoose';
+import { ITags } from '../tags/interfaces/tags.interface';
+
 import { CreateUserDto } from './dto/create-user.dto';
+
+//Services
+import { MailService } from '../mail/mail.service';
+import { TagsService } from '../tags/tags.service';
+
 
 @Injectable()
 export class UserService {
 
     private readonly saltRounds = 10;
 
-    constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
+    constructor(
+        @InjectModel('User') private readonly userModel: Model<IUser>,
+        private readonly mailService: MailService,
+        private readonly tagsService: TagsService
+    ) {
+
+    }
+
+    async tagList(): Promise<ITags[]> {
+        return this.tagsService.tagsList();
+    }
 
     async hashPassword(password: string): Promise<string> {
         const salt = await bcrypt.genSalt(this.saltRounds);

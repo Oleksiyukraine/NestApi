@@ -30,8 +30,7 @@ export class AuthController {
 
     @Get('/confirm')
     async confirm(@Query(new ValidationPipe()) query: ConfirmAccountDto){
-        await this.authService.confirm(query.token)
-        return true
+        return await this.authService.confirm(query.token)
     }
 
     @Post('/signIn')

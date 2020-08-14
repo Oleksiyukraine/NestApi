@@ -27,4 +27,7 @@ export class MailService {
             });
         });
     }
+    test() {
+        return 'Test'
+    }
 }

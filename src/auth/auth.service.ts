@@ -33,9 +33,10 @@ export class AuthService {
 
     constructor(
         private readonly jwtService: JwtService,
+        private readonly configService: ConfigService,
+
         private readonly userService: UserService,
         private readonly tokenService: TokenService,
-        private readonly configService: ConfigService,
         private readonly mailService: MailService,
     ) {
         this.clientAppUrl = this.configService.get<string>('FE_APP_URL');

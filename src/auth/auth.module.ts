@@ -19,6 +19,8 @@ import { AuthService } from './auth.service';
   imports: [
       UserModule,
       TokenModule,
+      MailModule,
+
       configModule,
       PassportModule.register({
         defaultStrategy: 'jwt'
@@ -26,8 +28,7 @@ import { AuthService } from './auth.service';
       JwtModule.register({
         secret: process.env.JWT_SECRET,
         signOptions: { expiresIn: '1d' }
-      }),
-      MailModule
+      })
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController]
